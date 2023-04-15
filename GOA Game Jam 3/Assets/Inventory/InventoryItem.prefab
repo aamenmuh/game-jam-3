@@ -85,11 +85,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7848734861930918726}
+  - component: {fileID: 3054568877667098434}
   - component: {fileID: 7624519639208459931}
   - component: {fileID: 2924673407779555183}
   - component: {fileID: 1585668440570605558}
   - component: {fileID: 8885957291981225341}
-  - component: {fileID: 3054568877667098434}
   m_Layer: 5
   m_Name: InventoryItem
   m_TagString: Untagged
@@ -119,6 +119,26 @@ RectTransform:
   m_AnchoredPosition: {x: -66.88989, y: 73.68989}
   m_SizeDelta: {x: 64.5414, y: 64.5414}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3054568877667098434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2878206893344988488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b5468311ee0905489b72a3e3ad80464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
+  isSelected: 0
+  icon: {fileID: 542665566915869201}
+  button: {fileID: 2924673407779555183}
+  text: {fileID: 3913253418108519238}
+  visScrap: {fileID: 6885305451826700288, guid: ba46a9d3f41136b4ebf6807a9b124d23, type: 3}
+  selectable: 0
+  selectedColor: {r: 0, g: 1, b: 0.2352941, a: 1}
 --- !u!222 &7624519639208459931
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -230,24 +250,6 @@ MonoBehaviour:
   color: 0
   weight: 0
   sprite: {fileID: 0}
---- !u!114 &3054568877667098434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2878206893344988488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b5468311ee0905489b72a3e3ad80464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 0
-  isSelected: 0
-  image: {fileID: 542665566915869201}
-  text: {fileID: 3913253418108519238}
-  visScrap: {fileID: 6885305451826700288, guid: ba46a9d3f41136b4ebf6807a9b124d23, type: 3}
-  selectable: 0
 --- !u!1 &4611646646053725343
 GameObject:
   m_ObjectHideFlags: 0

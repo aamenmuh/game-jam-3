@@ -8,10 +8,11 @@ public class InventoryItemManager : MonoBehaviour
 {
     public int index;
     public bool isSelected = false;
-    private RectTransform selector;
+    //private RectTransform selector;
     private InventoryManager manager;
 
-    public Image image;
+    public Image icon;
+    public Image button;
     public TextMeshProUGUI text;
     private ScrapData data;
 
@@ -20,7 +21,10 @@ public class InventoryItemManager : MonoBehaviour
     private Transform player;
 
     public bool selectable;
-   
+
+    public Color selectedColor;
+    private Color unselectedColor;
+    
 
     private void Awake()
     {
@@ -30,8 +34,9 @@ public class InventoryItemManager : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
-        selector = GameObject.FindWithTag("UISelector").GetComponent<RectTransform>();
+        //selector = GameObject.FindWithTag("UISelector").GetComponent<RectTransform>();
         manager = transform.parent.GetComponent<InventoryManager>();
+        unselectedColor = button.color;
     }
 
     private void Update()
@@ -44,28 +49,29 @@ public class InventoryItemManager : MonoBehaviour
         {
             if (!isSelected)
             {
-                Select();
+                manager.SelectItem(index);
             }
             else
             {
-                Deselect();
+                manager.SelectItem(-1);
             }
         }
     }
 
     public void Select()
     {
-        Setup();
-        selector.gameObject.GetComponent<Image>().enabled = true;
-        selector.position = this.GetComponent<RectTransform>().position;
-        manager.SelectItem(index);
+        //selector.gameObject.GetComponent<Image>().enabled = true;
+        //selector.position = this.GetComponent<RectTransform>().position;
+        button.color = selectedColor;
+        //manager.SelectItem(index);
         isSelected = true;
     }
 
     public void Deselect()
     {
-        selector.gameObject.GetComponent<Image>().enabled = false;
-        manager.SelectItem(-1);
+        //selector.gameObject.GetComponent<Image>().enabled = false;
+        button.color = unselectedColor;
+        //manager.SelectItem(-1);
         isSelected = false;
     }
 
@@ -75,15 +81,15 @@ public class InventoryItemManager : MonoBehaviour
         
         if (data != null)
         {
-            image.enabled = true;
+            icon.enabled = true;
             text.enabled = true;
             selectable = true;
-            image.sprite = data.sprite;
+            icon.sprite = data.sprite;
             text.text = data.Name();
         }
         else
         {
-            image.enabled = false;
+            icon.enabled = false;
             text.enabled = false;
             selectable = false;
         }
@@ -94,11 +100,10 @@ public class InventoryItemManager : MonoBehaviour
         GameObject obj = Instantiate(visScrap, player.position, new Quaternion(0f,0f,0f,0f));
         ScrapData odata = obj.GetComponent<ScrapData>();
         odata.Copy(data);
-        Deselect();
-        Destroy(data);
-        Setup();
-        image.enabled = false;
+        icon.enabled = false;
         text.enabled = false;
         selectable = false;
+        Deselect();
+        Destroy(this.gameObject);
     }
 }
