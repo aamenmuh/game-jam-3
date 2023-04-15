@@ -72,6 +72,7 @@ public class InventoryManager : MonoBehaviour
                 inventoryItems[i] = null;
         }
         inventoryItems.RemoveAt(inventoryItems.Count - 1);
+        SelectItem(-1);
     }
 
  
