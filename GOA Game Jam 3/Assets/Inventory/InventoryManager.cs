@@ -28,8 +28,7 @@ public class InventoryManager : MonoBehaviour
         ClearInventory();
         for(int i = 0; i < inventoryLimit; i++)
         {
-            GameObject obj = Instantiate(itemPrefab);
-            obj.transform.SetParent(transform);
+            GameObject obj = Instantiate(itemPrefab, transform);
             obj.GetComponent<ScrapData>().Randomize();
             obj.GetComponent<InventoryItemManager>().index = i;
             obj.GetComponent<InventoryItemManager>().Setup();
@@ -83,8 +82,7 @@ public class InventoryManager : MonoBehaviour
         ScrapData data;
         if (go.GetComponent<ScrapData>() == null) return false;
         if (inventoryItems.Count == inventoryLimit) return false;
-        GameObject obj = Instantiate(itemPrefab);
-        obj.transform.SetParent(transform);
+        GameObject obj = Instantiate(itemPrefab, transform);
         obj.GetComponent<ScrapData>().Copy(go.GetComponent<ScrapData>());
         obj.GetComponent<InventoryItemManager>().index = inventoryItems.Count;
         obj.GetComponent<InventoryItemManager>().Setup();

@@ -10,6 +10,7 @@ public class VisibleScrapBehavior : MonoBehaviour
     private InventoryManager manager;
     [SerializeField] private float dropForce;
     private Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,11 @@ public class VisibleScrapBehavior : MonoBehaviour
         data = GetComponent<ScrapData>();
         render.sprite = data.sprite;
         manager = GameObject.FindWithTag("InventoryManager").GetComponent<InventoryManager>();
+       
+    }
+
+    public void Drop()
+    {
         rb = GetComponent<Rigidbody2D>();
         float angle = Random.Range(0, 360);
         Vector2 force = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * dropForce;

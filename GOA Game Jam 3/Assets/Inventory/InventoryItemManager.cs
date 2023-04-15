@@ -8,7 +8,6 @@ public class InventoryItemManager : MonoBehaviour
 {
     public int index;
     public bool isSelected = false;
-    //private RectTransform selector;
     private InventoryManager manager;
 
     public Image icon;
@@ -34,7 +33,6 @@ public class InventoryItemManager : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
-        //selector = GameObject.FindWithTag("UISelector").GetComponent<RectTransform>();
         manager = transform.parent.GetComponent<InventoryManager>();
         unselectedColor = button.color;
     }
@@ -60,18 +58,13 @@ public class InventoryItemManager : MonoBehaviour
 
     public void Select()
     {
-        //selector.gameObject.GetComponent<Image>().enabled = true;
-        //selector.position = this.GetComponent<RectTransform>().position;
         button.color = selectedColor;
-        //manager.SelectItem(index);
         isSelected = true;
     }
 
     public void Deselect()
     {
-        //selector.gameObject.GetComponent<Image>().enabled = false;
         button.color = unselectedColor;
-        //manager.SelectItem(-1);
         isSelected = false;
     }
 
@@ -100,6 +93,7 @@ public class InventoryItemManager : MonoBehaviour
         GameObject obj = Instantiate(visScrap, player.position, new Quaternion(0f,0f,0f,0f));
         ScrapData odata = obj.GetComponent<ScrapData>();
         odata.Copy(data);
+        obj.GetComponent<VisibleScrapBehavior>().Drop();
         icon.enabled = false;
         text.enabled = false;
         selectable = false;
