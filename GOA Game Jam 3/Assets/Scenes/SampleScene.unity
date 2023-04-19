@@ -6233,7 +6233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513698891007889600, guid: 9735db8ba62e3854085e0871963eb228, type: 3}
       propertyPath: maxPingDelay
-      value: 2.7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8513698891007889600, guid: 9735db8ba62e3854085e0871963eb228, type: 3}
       propertyPath: minIntensity

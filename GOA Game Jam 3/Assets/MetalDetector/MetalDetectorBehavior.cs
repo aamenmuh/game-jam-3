@@ -71,8 +71,10 @@ public class MetalDetectorBehavior : MonoBehaviour
                 }
                 light.intensity = 0f;
                 source.Stop();
+                yield return new WaitForSeconds(pingDelay);
             }
-            yield return new WaitForSeconds(pingDelay);
+            yield return null;
+           
         }
 
     }
