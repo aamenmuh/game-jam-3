@@ -44,7 +44,7 @@ public class DialogueManager : MonoBehaviour
         else
         {
             Debug.Log("conversation ended");
-            isActive = false;
+            //gameObject.SetActive(false);
         }
     }
 

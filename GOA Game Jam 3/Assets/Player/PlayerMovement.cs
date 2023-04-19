@@ -20,6 +20,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //IF IN DIALOGUE SEQUENCE- DO NOT ACCEPT ANY OTHER INPUTS FROM MOVEMENT
+        if(DialogueManager.isActive == true)
+        {
+            return;
+        }
+
         Vector2 NewVelocity = rb.velocity;
         NewVelocity.x += Input.GetAxisRaw("Horizontal") * Acceleration* Time.deltaTime;
         NewVelocity.y += Input.GetAxisRaw("Vertical") * Acceleration * Time.deltaTime;
