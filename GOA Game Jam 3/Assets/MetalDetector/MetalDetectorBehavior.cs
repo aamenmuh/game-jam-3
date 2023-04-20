@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class MetalDetectorBehavior : MonoBehaviour
 {
@@ -18,38 +19,55 @@ public class MetalDetectorBehavior : MonoBehaviour
     public float maxPingDelay;
     public bool pinging;
     public float distance;
-    
-    
+    public Slider slider;
+    public float batteryDrainRate = 1f;
+    private IEnumerator coroutine;
+
     // Start is called before the first frame update
     void Start()
     {
         source = GetComponent<AudioSource>();
         light = GetComponent<Light2D>();
-        IEnumerator coroutine = Ping();
+        coroutine = Ping();
         StartCoroutine(coroutine);
+
     }
 
     private void Update()
     {
-        distance = -1;
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, scanRadius, detectMask);
-        foreach(Collider2D col in cols)
+        //drain battery
+        
+        if(slider.value <= 0f)
         {
-            float newDis = Vector2.Distance(transform.position, col.transform.position);
-            if (distance == -1 || newDis < distance) distance = newDis;
-        }
-        if (distance != -1)
-        {
-            pinging = true;
-            float x = Mathf.InverseLerp(scanRadius, 0f, distance);
-            pingDelay = Mathf.Lerp(maxPingDelay, minPingDelay, x);
-            source.volume = Mathf.Lerp(0.1f, 1f, x);
-            flashIntensity = Mathf.Lerp(minIntensity, maxIntensity, x);
+            slider.value = 0f;
+            pinging = false;
         }
         else
         {
-            pinging = false;
+            slider.value = Mathf.Clamp(slider.value - (batteryDrainRate * Time.deltaTime), 0f, 100f);
+            //manage metal detecting
+            distance = -1;
+            Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, scanRadius, detectMask);
+            foreach (Collider2D col in cols)
+            {
+                float newDis = Vector2.Distance(transform.position, col.transform.position);
+                if (distance == -1 || newDis < distance) distance = newDis;
+            }
+            if (distance != -1)
+            {
+                pinging = true;
+                float x = Mathf.InverseLerp(scanRadius, 0f, distance);
+                pingDelay = Mathf.Lerp(maxPingDelay, minPingDelay, x);
+                source.volume = Mathf.Lerp(0.1f, 1f, x);
+                flashIntensity = Mathf.Lerp(minIntensity, maxIntensity, x);
+            }
+            else
+            {
+                pinging = false;
+            }
         }
+        
+        
     }
 
 
@@ -77,5 +95,10 @@ public class MetalDetectorBehavior : MonoBehaviour
            
         }
 
+    }
+
+    public void Charge(float amount)
+    {
+        slider.value = Mathf.Clamp(slider.value + amount, 0f, 100f);
     }
 }
